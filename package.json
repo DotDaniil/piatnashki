@@ -6,6 +6,7 @@
     "@babel/core": "^7.16.0",
     "@babel/plugin-proposal-decorators": "^7.23.2",
     "@linaria/core": "^5.0.2",
+    "@next/bundle-analyzer": "^14.0.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -27,7 +28,6 @@
     "css-minimizer-webpack-plugin": "^3.2.0",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
-    "eslint": "^8.3.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
@@ -37,12 +37,14 @@
     "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
+    "linaria": "^5.0.5",
     "mini-css-extract-plugin": "^2.7.6",
     "mobx": "^6.10.2",
     "mobx-react": "^9.0.1",
     "mobx-react-lite": "^4.0.5",
     "next": "^14.0.1",
     "next-linaria": "^0.11.0",
+    "next-with-linaria": "^0.6.0",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -145,7 +147,11 @@
     "resetMocks": true
   },
   "devDependencies": {
-    "@linaria/babel-preset": "^5.0.3",
-    "@linaria/react": "^5.0.3"
+    "@linaria/babel-preset": "^5.0.4",
+    "@linaria/react": "^5.0.3",
+    "eslint": "^8.54.0",
+    "eslint-config-next": "^14.0.3",
+    "eslint-plugin-next": "^0.0.0",
+    "eslint-plugin-react": "^7.33.2"
   }
 }
