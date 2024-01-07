@@ -1,23 +1,29 @@
-import { observable, action, makeObservable } from 'mobx';
-
+import { observable, action, makeObservable } from "mobx";
 
 class AppStore {
-    state = {changed: false};
+  state = { changed: false };
+  fieldStore = {
+    A: { src: null, occupy: null, occupyPrev: null },
+    B: { src: null, occupy: null, occupyPrev: null },
+    C: { src: null, occupy: null, occupyPrev: null },
+    D: { src: null, occupy: null, occupyPrev: null },
+    E: { src: null, occupy: null, occupyPrev: null },
+  };
 
-    constructor() {
+  constructor() {
+    makeObservable(this, {
+      state: observable,
+      changeState: action,
+    });
+  }
 
-        makeObservable(this, {
-            state: observable,
-            changeState: action,
-        });
-    }
-
-    changeState = () => {
-        this.state = {...this.state, changed: true}
-    }
+  changeState = () => {
+    this.state = { ...this.state, changed: true };
+  };
 }
 
 const appStore = new AppStore();
+// eslint-disable-next-line import/no-default-export
 export default appStore;
 
 // fieldStoreStructure:
@@ -30,4 +36,3 @@ export default appStore;
 // historyStoreStructure: [{"L":[15,12]}...]
 
 // разрезать картинку на части c помощью canvas: "A": {..., src: "canvasPart"}
-
