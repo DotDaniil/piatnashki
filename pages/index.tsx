@@ -6,9 +6,9 @@ import { Field } from "../src/components/field/field";
 const HomePage = observer(() => {
 
     return (
-          <div>
-              <Field />
-            </div>
+      <div>
+        <Field />
+      </div>
     );
 });
 
