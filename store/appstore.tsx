@@ -1,24 +1,45 @@
 import { observable, action, makeObservable } from "mobx";
+import { FieldStore, FieldStoreItem, HistoryStore } from "./types";
+
+const englishLetters = Array.from({ length: 15 }, (_, index) =>
+  String.fromCharCode("A".charCodeAt(0) + index)
+);
 
 class AppStore {
-  state = { changed: false };
-  fieldStore = {
-    A: { src: null, occupy: null, occupyPrev: null },
-    B: { src: null, occupy: null, occupyPrev: null },
-    C: { src: null, occupy: null, occupyPrev: null },
-    D: { src: null, occupy: null, occupyPrev: null },
-    E: { src: null, occupy: null, occupyPrev: null },
-  };
+  fieldStore: FieldStore = [
+    ...englishLetters.map(el => ({
+      field: el,
+      params: { src: null, occupy: null, occupyPrev: null },
+    })),
+  ];
+
+  historyStore: HistoryStore = [];
 
   constructor() {
     makeObservable(this, {
-      state: observable,
-      changeState: action,
+      fieldStore: observable,
+      historyStore: observable,
+      moveFieldItem: action,
     });
   }
 
-  changeState = () => {
-    this.state = { ...this.state, changed: true };
+  moveFieldItem = (item: FieldStoreItem) => {
+    const index = this.fieldStore.findIndex(
+      fieldItem => fieldItem.field === item.field
+    );
+
+    if (index !== -1) {
+      this.fieldStore[index] = {
+        field: item.field,
+        params: {
+          src: item.params.src,
+          occupy: item.params.occupy,
+          occupyPrev: item.params.occupyPrev,
+        },
+      };
+
+      this.fieldStore = [...this.fieldStore];
+    }
   };
 }
 
@@ -36,3 +57,4 @@ export default appStore;
 // historyStoreStructure: [{"L":[15,12]}...]
 
 // разрезать картинку на части c помощью canvas: "A": {..., src: "canvasPart"}
+// добавить available movements в state, чтобы были направляющие линии для плашек ( в какую сторону можно их двигать )
