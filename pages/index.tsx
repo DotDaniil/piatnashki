@@ -7,9 +7,8 @@ const HomePage = observer(() => {
 
     return (
           <div>
-            <button onClick={appStore.changeState}>Change state</button>
               <Field />
-        </div>
+            </div>
     );
 });
 

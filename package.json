@@ -2,6 +2,10 @@
   "name": "piatnashki",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.19.0",
+    "npm": "10.2.3"
+  },
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/plugin-proposal-decorators": "^7.23.2",
@@ -153,5 +157,9 @@
     "eslint-config-next": "^14.0.3",
     "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-react": "^7.33.2"
+  },
+  "volta": {
+    "node": "18.19.0",
+    "npm": "10.2.3"
   }
 }
