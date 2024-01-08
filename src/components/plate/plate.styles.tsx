@@ -19,3 +19,7 @@ export const plate = css`
   align-items: center;
   justify-content: center;
 `;
+
+export const anchor = css`
+  visibility: hidden;
+`;

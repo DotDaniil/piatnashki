@@ -11,6 +11,10 @@ class AppStore {
       field: el,
       params: { src: null, occupy: null, occupyPrev: null },
     })),
+    {
+      field: "anchor",
+      params: { src: null, occupy: 16, occupyPrev: null },
+    },
   ];
 
   historyStore: HistoryStore = [];

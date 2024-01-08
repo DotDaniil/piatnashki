@@ -1,10 +1,15 @@
 import React from "react";
-import { plate } from "./plate.styles";
+import { FieldStoreItem } from "store/types";
+import { anchor, plate } from "./plate.styles";
 
 export type PlateProps = {
-  field: string;
+  el: FieldStoreItem;
+  idx: number;
 };
 
-export const Plate: React.FC<PlateProps> = ({ field }) => {
-  return <div className={plate}>{field}</div>;
+export const Plate: React.FC<PlateProps> = ({ el, idx }) => {
+  const isAnchor = el.field === "anchor";
+  return (
+    <div className={isAnchor ? anchor : plate}>{el.params.src ?? el.field}</div>
+  );
 };

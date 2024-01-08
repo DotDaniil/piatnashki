@@ -1,6 +1,6 @@
 export type FieldStoreItem = {
   field: string;
-  params: { src: null; occupy: null; occupyPrev: null };
+  params: { src: null | string; occupy: null | number; occupyPrev: null };
 };
 
 export type FieldStore = FieldStoreItem[];
