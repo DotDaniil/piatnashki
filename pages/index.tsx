@@ -4,7 +4,7 @@ import { Field } from "../src/components/field/field";
 
 const HomePage = observer(() => {
   return (
-    <div>
+    <div className='app'>
       <Field />
     </div>
   );

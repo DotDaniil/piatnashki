@@ -11,12 +11,10 @@ export const plate = css`
   background: #fff;
   box-shadow: 0 0 8px 3px rgba(206, 206, 241, 0.8);
   color: #000;
-  font-family:
-    Island Moments,
-    cursive;
   font-size: 100px;
   font-style: normal;
   font-weight: 400;
+  font-family: "Island Moments", cursive;
   line-height: normal;
   align-items: center;
   justify-content: center;
