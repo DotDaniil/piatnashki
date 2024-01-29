@@ -1,6 +1,6 @@
-import { css } from "@linaria/core";
+import { styled } from "@linaria/react";
 
-export const plate = css`
+export const PlateWithOrder = styled.div<{ order?: number; hidden?: boolean }>`
   display: flex;
   position: relative;
   width: 144px;
@@ -18,8 +18,6 @@ export const plate = css`
   line-height: normal;
   align-items: center;
   justify-content: center;
-`;
-
-export const anchor = css`
-  visibility: hidden;
+  order: ${props => props.order};
+  visibility: ${props => (props.hidden ? "hidden" : "visible")};
 `;

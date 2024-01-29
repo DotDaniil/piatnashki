@@ -1,6 +1,13 @@
+export type Direction = "up" | "down" | "left" | "right";
+
 export type FieldStoreItem = {
   field: string;
-  params: { src: null | string; occupy: null | number; occupyPrev: null };
+  params: {
+    src: null | string;
+    cords: { x: number; y: number };
+    moves: { isMovable: boolean; direction: null | Directions };
+    cordsPrev: null;
+  };
 };
 
 export type FieldStore = FieldStoreItem[];
