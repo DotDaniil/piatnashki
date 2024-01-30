@@ -11,7 +11,7 @@ class AppStore {
       fieldStore: observable,
       historyStore: observable,
       getAnchor: computed,
-      writeIsMovableToState: action,
+      writeIsMovableAndDirectionsToState: action,
     });
   }
 
@@ -19,7 +19,7 @@ class AppStore {
     return this.fieldStore.find(el => el.field === "anchor");
   }
 
-  writeIsMovableToState() {
+  writeIsMovableAndDirectionsToState() {
     const { x: anchorX, y: anchorY } = this.getAnchor.params.cords;
 
     const moves = {

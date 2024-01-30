@@ -25,9 +25,14 @@ export const createInitialFields = () => {
   initialFields.forEach((el, idx) => {
     if (idx + 1 !== initialFields.length) {
       el.field = englishLetters[idx];
-    } else {
+    }
+
+    if (idx === 5) {
       el.field = "anchor";
     }
+    // else {
+    //   el.field = "anchor";
+    // }
   });
 
   return initialFields;
