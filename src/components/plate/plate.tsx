@@ -135,7 +135,6 @@ export const Plate: React.FC<PlateProps> = ({ el, idx }) => {
         (direction === "down" && deltaY >= Math.abs(maxVariable)) ||
         (direction === "up" && Math.abs(deltaY) >= maxVariable)
       ) {
-        console.log("пересечение");
       } else {
         e.currentTarget.style.left = "0px";
         e.currentTarget.style.top = "0px";
@@ -154,11 +153,39 @@ export const Plate: React.FC<PlateProps> = ({ el, idx }) => {
 
   const onPlateMouseLeave = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      // e.currentTarget.style.left = "0px";
-      // e.currentTarget.style.top = "0px";
-      setIsDragging(false);
+      if (isDragging) {
+        const deltaX = mousePosition.x - clickStartPoints.x;
+        const deltaY = mousePosition.y - clickStartPoints.y;
+        // const increase = 1000;
+
+        if (direction === "right" && deltaX > 0) {
+          e.currentTarget.style.left = `${maxVariable}px`;
+        }
+
+        if (direction === "left" && deltaX < 0) {
+          e.currentTarget.style.left = `${maxVariable}px`;
+        }
+
+        if (direction === "down" && deltaY > 0) {
+          e.currentTarget.style.top = `${Math.abs(maxVariable)}px`;
+        }
+
+        if (direction === "up" && deltaY < 0) {
+          e.currentTarget.style.top = `${-maxVariable}px`;
+        }
+
+        setIsDragging(false);
+      }
     },
-    []
+    [
+      clickStartPoints.x,
+      clickStartPoints.y,
+      direction,
+      isDragging,
+      maxVariable,
+      mousePosition.x,
+      mousePosition.y,
+    ]
   );
 
   return (
