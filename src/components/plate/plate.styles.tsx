@@ -90,27 +90,34 @@ export const TriangleBorder = {
 };
 
 export const PlateWithOrderWrap = styled.div<{
+  isDragging: boolean;
   order: number;
 }>`
+  position: relative;
+  transition: all 0.3s ease-out;
+  z-index: ${props => (props.isDragging ? "1" : "0")};
   order: ${props => props.order};
 `;
+
+export const PLATE_SIZE = 144;
 
 export const PlateWithCssLogic = styled.div<{
   hidden: boolean;
   isMovable: boolean;
 }>`
   display: flex;
+  user-select: none;
   cursor: ${props => (props.isMovable ? "pointer" : "inherit")};
   position: relative;
-  width: 144px;
-  height: 144px;
+  width: ${PLATE_SIZE}px;
+  height: ${PLATE_SIZE}px;
   margin: auto;
   border-radius: 10px;
   border: 3px solid #cecef1;
   background: #fff;
   box-shadow: ${props =>
     props.isMovable
-      ? "0 0 8px 3px rgba(206, 206, 241, 0.8)"
+      ? "0 0 8px 3px rgba(250, 150, 241, 0.8)"
       : "0 0 8px 3px rgba(206, 206, 241, 0.8)"};
   color: #000;
   font-size: 100px;
