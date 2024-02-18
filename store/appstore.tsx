@@ -14,7 +14,7 @@ class AppStore {
       writeIsMovableAndDirectionsToState: action,
       moveElementLogic: action,
       moveElement: action,
-      monitorCoordinates: action,
+      // monitorCoordinates: action,
     });
   }
 
@@ -35,7 +35,8 @@ class AppStore {
 
     this.fieldStore.forEach(el => {
       const { cords } = el.params;
-      // TODO: Fix bug for old directions doesn't change moves
+      el.params.moves.direction = null;
+      el.params.moves.isMovable = false;
       Object.keys(moves).forEach((direction: Direction) => {
         const { dx, dy } = moves[direction];
         if (cords.y + dy === anchorY && cords.x + dx === anchorX) {
@@ -64,27 +65,26 @@ class AppStore {
       this.fieldStore[fieldIndex] = field;
       this.fieldStore[anchorIndex] = anchor;
     }
-
-    console.log(toJS(this.fieldStore), toJS(field), toJS(anchor), "kekfield");
   };
 
-  monitorCoordinates = () => {
-    console.log("MONITORING run");
-    const sortedFieldStore = [...this.fieldStore];
-
-    sortedFieldStore.sort((a, b) => {
-      return a.params.cords.y !== b.params.cords.y
-        ? a.params.cords.y - b.params.cords.y
-        : a.params.cords.x - b.params.cords.x;
-    });
-    this.fieldStore = sortedFieldStore;
-  };
+  // monitorCoordinates = () => {
+  //   console.log("MONITORING run");
+  //   const sortedFieldStore = [...this.fieldStore];
+  //
+  //   sortedFieldStore.sort((a, b) => {
+  //     return a.params.cords.y !== b.params.cords.y
+  //       ? a.params.cords.y - b.params.cords.y
+  //       : a.params.cords.x - b.params.cords.x;
+  //   });
+  //   this.fieldStore = sortedFieldStore;
+  // };
 
   moveElement = (field: FieldStoreItem) => {
     if (field) {
       this.moveElementLogic(field);
-      this.monitorCoordinates();
+      // this.monitorCoordinates();
       this.writeIsMovableAndDirectionsToState();
+      console.log(toJS(this.fieldStore), "kekfield");
     }
   };
 }
