@@ -6,7 +6,7 @@ export type FieldStoreItem = {
     src: null | string;
     cords: { x: number; y: number };
     moves: { isMovable: boolean; direction: null | Direction };
-    cordsPrev: null;
+    cordsPrev: { x: number; y: number } | null;
   };
 };
 

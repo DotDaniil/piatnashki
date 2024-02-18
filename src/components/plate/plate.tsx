@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { FieldStoreItem } from "store/types";
-
+import appStore from "store/appstore";
 import {
   PLATE_SIZE,
   PlateWithCssLogic,
@@ -25,6 +25,7 @@ export const Plate: React.FC<PlateProps> = ({ el, idx }) => {
   const isAnchor = field === "anchor";
 
   const { mousePosition } = useMousePosition();
+  const { moveElement } = appStore;
 
   const arrowDirectionStyle = useMemo(() => {
     return `${TriangleBorder[direction]}`;
@@ -32,7 +33,6 @@ export const Plate: React.FC<PlateProps> = ({ el, idx }) => {
 
   const [isDragging, setIsDragging] = useState(false);
   const [clickStartPoints, setClickStartPoints] = useState({ x: 0, y: 0 });
-
   const initialPosition = useMemo(
     () => ({
       x: mousePosition.x - clickStartPoints.x,
@@ -85,27 +85,28 @@ export const Plate: React.FC<PlateProps> = ({ el, idx }) => {
             }
           }
           if (direction === "left") {
-            if (deltaX < maxVariable) {
-              initialPosition.x = maxVariable;
-            }
             if (deltaX > 0) {
               initialPosition.x = 0;
+            }
+
+            if (deltaX < maxVariable) {
+              initialPosition.x = maxVariable;
             }
           }
           e.currentTarget.style.left = `${initialPosition.x}px`;
         } else {
           if (direction === "down") {
+            if (deltaY < 0) initialPosition.y = 0;
             if (deltaY > Math.abs(maxVariable)) {
               initialPosition.y = Math.abs(maxVariable);
             }
-            if (deltaY < 0) initialPosition.y = 0;
           }
 
           if (direction === "up") {
+            if (deltaY > 0) initialPosition.y = 0;
             if (Math.abs(deltaY) > maxVariable) {
               initialPosition.y = maxVariable * -1;
             }
-            if (deltaY > 0) initialPosition.y = 0;
           }
           e.currentTarget.style.top = `${initialPosition.y}px`;
         }
@@ -129,25 +130,30 @@ export const Plate: React.FC<PlateProps> = ({ el, idx }) => {
       const deltaX = mousePosition.x - clickStartPoints.x;
       const deltaY = mousePosition.y - clickStartPoints.y;
 
+      // TODO: FIX BUG if up on another element - bug reset all drugging
       if (
         (direction === "right" && deltaX >= maxVariable) ||
         (direction === "left" && deltaX <= maxVariable) ||
         (direction === "down" && deltaY >= Math.abs(maxVariable)) ||
         (direction === "up" && Math.abs(deltaY) >= maxVariable)
       ) {
+        setIsDragging(false);
+        moveElement(el);
       } else {
         e.currentTarget.style.left = "0px";
         e.currentTarget.style.top = "0px";
+        setIsDragging(false);
       }
-      setIsDragging(false);
     },
     [
       clickStartPoints.x,
       clickStartPoints.y,
       direction,
+      el,
       maxVariable,
       mousePosition.x,
       mousePosition.y,
+      moveElement,
     ]
   );
 
@@ -156,35 +162,43 @@ export const Plate: React.FC<PlateProps> = ({ el, idx }) => {
       if (isDragging) {
         const deltaX = mousePosition.x - clickStartPoints.x;
         const deltaY = mousePosition.y - clickStartPoints.y;
-        // const increase = 1000;
 
         if (direction === "right" && deltaX > 0) {
           e.currentTarget.style.left = `${maxVariable}px`;
+          setIsDragging(false);
+          moveElement(el);
         }
 
         if (direction === "left" && deltaX < 0) {
           e.currentTarget.style.left = `${maxVariable}px`;
+          setIsDragging(false);
+          moveElement(el);
         }
 
         if (direction === "down" && deltaY > 0) {
           e.currentTarget.style.top = `${Math.abs(maxVariable)}px`;
+          setIsDragging(false);
+          moveElement(el);
         }
 
         if (direction === "up" && deltaY < 0) {
-          e.currentTarget.style.top = `${-maxVariable}px`;
+          e.currentTarget.style.top = `${maxVariable * -1}px`;
+          setIsDragging(false);
+          moveElement(el);
         }
-
-        setIsDragging(false);
       }
+      setIsDragging(false);
     },
     [
       clickStartPoints.x,
       clickStartPoints.y,
       direction,
+      el,
       isDragging,
       maxVariable,
       mousePosition.x,
       mousePosition.y,
+      moveElement,
     ]
   );
 
